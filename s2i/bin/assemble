@@ -1,0 +1,38 @@
+#!/bin/bash -e
+#
+# S2I assemble script for the 'go-bi' image.
+# The 'assemble' script builds your application source so that it is ready to run.
+#
+# For more information refer to the documentation:
+#	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+
+# If the 'go-bi' assemble script is executed with the '-h' flag, print the usage.
+if [[ "$1" == "-h" ]]; then
+	exec /usr/local/s2i/usage
+fi
+
+# Restore artifacts from the previous build (if they exist).
+#
+if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
+  echo "---> Restoring build artifacts..."
+  mv /tmp/artifacts/. ./
+fi
+
+#export GOBIN=${GOPATH}/bin
+
+#echo "HOME is ${HOME}"
+#echo "GOPATH is ${GOPATH}"
+#echo "GOBIN is ${GOBIN}"
+#mkdir -p ${GOBIN}
+#echo "current directory is $(pwd)"
+
+echo "---> Installing application source..."
+cp -Rf /tmp/src/. ${GOPATH}
+rm -r /tmp/src
+
+echo "---> Download Dependencies..."
+go get -d ./... || true
+
+echo "---> Building application from source..."
+go build -o go-app
