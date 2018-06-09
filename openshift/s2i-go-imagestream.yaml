@@ -1,0 +1,8 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: s2i-go
+  annotations:
+    openshift.io/image.insecureRepository: "true"
+spec:
+  dockerImageRepository: hub.docker.com/r/ravo444/s2i-go

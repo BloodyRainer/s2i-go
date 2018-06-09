@@ -8,7 +8,7 @@ FROM golang
 ENV BUILDER_VERSION 1.0
 
 # TODO: Set labels used in OpenShift to describe the builder image
-#LABEL io.k8s.description="Platform for building xyz" \
+# LABEL io.k8s.description="Platform for building xyz" \
 #      io.k8s.display-name="builder x.y.z" \
 #      io.openshift.expose-services="8080:http" \
 #      io.openshift.tags="builder,x.y.z,etc."
